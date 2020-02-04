@@ -4,14 +4,18 @@
 int main()  
 {  
     int a;
+    
+    a = 256;
+    
+    while (a>1) {
+      
+      printf("%d\n", a);
 
-    for (a = 256; a > 1; a = sqrt(a))  
-    {  
-        printf("%d\n", a);  
-    }  
+      a = sqrt(a);
+    }
+
 
     printf("%d\n", 1);  
 
     return 0;
 }  
-
