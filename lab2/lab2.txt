@@ -15,8 +15,8 @@ d) double: 4.000000
 3. 10 / 3  
 a) int: 3
 b) unsigned int: 3
-c) float: 3.000000
-d) double: 3.000000
+c) float: 3.333333
+d) double: 3.333333
 
 4. 12 % 3 = 0
 
