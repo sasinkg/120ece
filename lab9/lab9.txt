@@ -1,0 +1,9 @@
+QUESTION 1.  Read through the program lab9.bin. What do you expect the program to do? More specifically, which register will the program modify when it is run, and what will it contain when the program finishes? (You can probably figure this out merely by reading the comments provided in lab9.bin.)
+
+ANSWER: The program will take Register 2, AND it with x00000 (the last five digits of the bit string - essentially clearing the register), and then add 12 to it, then store the result. Then the program is TRAP'ed, meaning the program stops. Then, the register will now contain the decimal value of 12 (x01100). 
+
+
+QUESTION 2.  Explain in a few sentences why the ability to step through a program (run one instruction at a time) is a very useful tool for debugging a program. Debugging is the process of finding and correcting bugs (or errors) in a program. Hint: Finding a bug is often much more difficult than correcting it.
+
+ANSWER: Stepping through a program is important because you can de-bug the instruction and allows you to see what is being changed at every step. If the register isn't changed, then you know that instruction didn't do anything. 
+
