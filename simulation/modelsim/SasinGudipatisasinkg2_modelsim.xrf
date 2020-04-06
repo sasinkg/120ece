@@ -1,0 +1,11 @@
+vendor_name = ModelSim
+source_file = 1, /home/sasinkg2/ece120/SasinGudipatisasinkg2.bdf
+source_file = 1, /home/sasinkg2/ece120/db/SasinGudipatisasinkg2.cbx.xml
+design_name = SasinGudipatisasinkg2
+instance = comp, \Cout~output\, Cout~output, SasinGudipatisasinkg2, 1
+instance = comp, \S~output\, S~output, SasinGudipatisasinkg2, 1
+instance = comp, \A~input\, A~input, SasinGudipatisasinkg2, 1
+instance = comp, \B~input\, B~input, SasinGudipatisasinkg2, 1
+instance = comp, \Cin~input\, Cin~input, SasinGudipatisasinkg2, 1
+instance = comp, \ABoBCoAC~0\, ABoBCoAC~0, SasinGudipatisasinkg2, 1
+instance = comp, \~QUARTUS_CREATED_GND~I\, ~QUARTUS_CREATED_GND~I, SasinGudipatisasinkg2, 1
