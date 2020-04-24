@@ -12,8 +12,8 @@ There were some errors, which included not typing .ORIG at the beginning and .EN
 
 Question 2: For each label in the code, write down the corresponding memory location. 
 
-OUTERLOOP: x3005
 INNERLOOP: x3006
+OUTERLOOP: x3005
 INPUT: x300E
 RESULT: x30FF
 
