@@ -1,9 +1,25 @@
 Question 1: Describe the errors that occur when trying to assemble lab11.asm. Identify the cause of each error.
 
+The Errors:
+- .ORIG at the beginning
+- .END at the end
+- LD R2 #14 
+- LD R5 #5
+- STI --> ST #242
+- BRpz --> BRzp
 
+There were some errors, which included not typing .ORIG at the beginning and .END at the end. There was also a problem of writing the address in place of the number of spaces that the program counter has to go to for the LD function. 
 
 Question 2: For each label in the code, write down the corresponding memory location. 
 
-
+OUTERLOOP: x3005
+INNERLOOP: x3006
+INPUT: x300E
+RESULT: x30FF
 
 Question 3: Between using labels and explicit memory locations/offsets, which one makes the most sense, and why?
+
+labeling memory locations/offsets helps coders understand the code and debug it when needed. it also makes code interpretation easier.
+
+
+
