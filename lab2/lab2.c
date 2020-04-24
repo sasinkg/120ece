@@ -9,7 +9,7 @@ int main()
     
     while (a>1) {
       
-      printf("%d\n", a);
+      printf("%d\n",a);
 
       a = sqrt(a);
     }
