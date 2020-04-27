@@ -2,7 +2,39 @@
 ; Make sure to comment your code properly and don't exceed 
 ; the line limitation for this assignment.  Good luck!
 
-0011 0001 0000 0000 ; x3100 - starting address of the program
-
+0011 0001 0000 0000; x3100 - starting address of the program
 ; The program description and code starts here
+
+0101 001 001 1 00000; x3100 - R1 AND 0 = 0 (R1 = Counter)
+0001 001 001 1 01010; x3101 - R1 = R1 + 10 = 10
+0101 101 101 1 00000; x3102 - R5 = R5 AND 0 = 0 (R2 = Addition)
+1110 011 000101110; x3103 - LEA R3 x3132
+0110 010 011000000; x3104 - LDR R2 R3 0
+0000 001 000000100; x3105 - Branch Positive to the Address of adding(x310B)
+0001 011 011 1 00001; x3106 - R3 = R3 + 1
+0001 001 001 1 11111; x3107 - R1 = R1 - 1
+0000 010 000000110; x3108 - Brz HALT
+0000 111 111111010; x3109 - Branch NZP to the address of LDR(x3105)
+0001 101 010 000 101; x310A - adding location (R5 = R2 + R5)
+0001 011 011 1 00001; x310B - R3 = R3 + 1
+0001 001 001 1 11111; x310C - R1 = R1 - 1 
+0000 010 000000001; x310D - Brz HALT
+0000 111 111110101; x310E - BRnzp address of LDR(x3105)
+1111 0000 0010 0101; x310F HALT
+
+
+; first try below (was in progress then realized i was doing it wrong)
+; 0101 011 011 1 00000; x3101 - R3 = 0
+; 0101 101 101 1 00000; x3102 - R5 = 0
+; 0101 010 100 1 00000; x3103 - R4 = 0
+; 0001 010 100 1 01010; x3104 - R4 = 10
+; 1110 001 000011011;  x3105 - Load value from x3132 into R1
+; 0110 001 011 000000; x3106 - moving the address from R1 into R3
+; 0000 001 000011001; x3107 - if value is positive, branch
+; 0001 101 011 0 00 101; x3108 - R5 = R3 + R5
+; 0001 001 001 1 00001; x3109 - R1 = R1 + 1 (incrimenting by 1)
+; 0001 100 100 1 11111; x310A - R4 = R4 - 1 (decrimenting by 1)
+
+
+
 
