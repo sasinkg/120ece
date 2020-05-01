@@ -33,12 +33,12 @@
 
 .ORIG x3000
 
+AND R3, R3, #0 ; R3 <- R3 AND 0 - clear contents of R3
+ADD R3, R3, #4 ; R3 <- R3 + 4 - add four so it becomes a counter
+
 LDI R4, VALUE ; R4 <- M[x5000] - load memory of x5002 into R4
 LDI R5, ONECHAR ; R5 <- M[x5001] - load memory of x5001 into R5
 LDI R6, ZCHAR ; R6 <- M[x5002] - load memory of x5000 into R6
-
-AND R3, R3, #0 ; R3 <- R3 AND 0 - clear contents of R3
-ADD R3, R3, #4 ; R3 <- R3 + 4 - add four so it becomes a counter
 
 SHIFT
 
@@ -47,12 +47,12 @@ ADD R3, R3, #-1 ; R3 <- R3 - 1 - decriment R3 by 1
 
 BRp SHIFT ; if > 0, go to shift 
 
-LEA R0, FONT_DATA ; R0 <- FONT_DATA
-ADD R4, R0, R4 ; R4 <- R0 + R4 
 AND R3, R3, #0 ; R3 <- R3 AND 0
 ADD R3, R3, #7; R3 <- R3 + 7 
 AND R2, R2, #0 ; R2 <- R2 AND 0
 ADD R2, R2, #15; R2 <- R2 + 15
+LEA R0, FONT_DATA ; R0 <- FONT_DATA
+ADD R4, R0, R4 ; R4 <- R0 + R4 
 
 BRANCH2 
 
@@ -92,8 +92,8 @@ LD R0, NEWLINE ; new line on the next row
 
 OUT 
 
-ADD R4, R4, #1 ; R4 <- R4 + 1
 ADD R2, R2, #-1 ; R2 <- R2 - 1
+ADD R4, R4, #1 ; R4 <- R4 + 1
 
 BRzp BRANCH2 ; R2 >= 0, go to BRANCH2 
 
