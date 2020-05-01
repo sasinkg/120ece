@@ -2,6 +2,99 @@
 ; character, the table uses 16 memory locations, each of which contains
 ; 8 bits (the high 8 bits, for your convenience) marking pixels in the
 ; line for that character.
+ 
+; Lab 12
+; Sasin Gudipati 
+
+
+; Register Values and Meaning: 
+; R0 - held the position of FONT_DATA to get the starting position of the code
+; R1 - holds value in the current address 
+; R2 - counter (row) for the code (starts at 15, goes to 0)
+; R3 - counter (column) for the code (starts at 7, and goes to 0)
+; R4 - adds 1 to address of start program if the (row)counter (R3) goes up by 1
+; R5 - holds address x5001 to add a “@” character if there is a 1
+; R6 - holds address x5002 to add a “.” character if there is a 0
+
+; introductory paragraph start here
+;
+
+; start code here
+
+.ORIG x3000
+
+LDI R4, VALUE ; R6 <- M[x5002] 
+LDI R5, ONECHAR ; R4 <- M[x5001] 
+LDI R6, ZCHAR ; R5 <- M[x5000]
+
+AND R3, R3, #0 ; R3 <- R3 AND 0 
+ADD R3, R3, #4 ; R3 <- R3 + 4 
+
+SHIFT
+
+ADD R4, R4, R4 ; R4 <- R4 + R4
+ADD R3, R3, #-1 ; R3 <- R3 - 1
+
+BRp SHIFT ; > 0, go to shift
+
+LEA R0, FONT_DATA ; R0 <- FONT_DATA
+ADD R4, R0, R4 ; R4 <- R0 + R4 
+AND R3, R3, #0 ; R3 <- R3 AND 0
+ADD R3, R3, #7; R3 <- R3 + 7 
+AND R2, R2, #0 ; R2 <- R2 AND 0
+ADD R2, R2, #15; R2 <- R2 + 15
+
+BRANCH2 
+
+LDR R1, R4, #0 ; R1 <- M[R4]
+AND R3, R3, #0 ; R3 <- R3 AND 0
+ADD R3, R3, #7; R3 <- R3 + 7  
+
+BRANCH1
+
+ADD R1, R1, #0 ; R1 <- R1 + 0 
+
+BRn ADDONE ; < 0, go to ADDONE
+
+ADDZERO
+
+ADD R0, R6, #0 ; R6 <- R6 + 0
+
+OUT 
+
+BRnzp LSHIFT ; go to LSHIFT
+
+ADDONE
+
+ADD R0, R5, #0 ; R0 <- R5 + 0 
+
+OUT 
+
+LSHIFT
+
+ADD R1, R1, R1 ; R1 <- R1 + R1 
+ADD R3, R3, #-1 ; R3 <- R3 - 1 
+
+BRzp BRANCH1 ; >= 0, go to BRANCH1
+ 
+
+LD R0, NEWLINE ; new line on the next row
+
+OUT 
+
+ADD R4, R4, #1 ; R4 <- R4 + 1
+ADD R2, R2, #-1 ; R2 <- R2 - 1
+
+BRzp BRANCH2 ; R2 >= 0, go to BRANCH2 
+
+HALT ; if R2 < 0, STOP
+
+VALUE .FILL x5002
+ONECHAR .FILL x5001
+ZCHAR .FILL x5000
+NEWLINE .FILL xA
+
+
 
 FONT_DATA
 	.FILL	x0000
@@ -4100,3 +4193,5 @@ FONT_DATA
 	.FILL	x0000
 	.FILL	x0000
 	.FILL	x0000
+
+.END
