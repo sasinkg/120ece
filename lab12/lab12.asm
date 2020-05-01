@@ -4,7 +4,8 @@
 ; line for that character.
  
 ; Lab 12
-; Sasin Gudipati 
+; Sasin Gudipati
+; sasinkg2 
 
 
 ; Register Values and Meaning: 
@@ -17,25 +18,34 @@
 ; R6 - holds address x5002 to add a “.” character if there is a 0
 
 ; introductory paragraph start here
-;
+
+; This code's purpose is to display certain ASCII characters in a pattern. These 
+; characters were stored in different address locations and needed to be called
+; everytime they need to be used. I determined an algorithm from a flowchart and figured
+; out the starting position of the code. It ended up being x3000 + (16 *M[x5002]). Once 
+; I figured out the code for this part, I needed to check each and every position and 
+; determine if it is a 1 or a 0, using a branch positive statement (determining if the 
+; whole it is positive or negative) to check the first bit of the sequence. Then you 
+; have to have the code loop back, so I added another branch so that the program would 
+; loop and not have extra lines of code.
 
 ; start code here
 
 .ORIG x3000
 
-LDI R4, VALUE ; R6 <- M[x5002] 
-LDI R5, ONECHAR ; R4 <- M[x5001] 
-LDI R6, ZCHAR ; R5 <- M[x5000]
+LDI R4, VALUE ; R4 <- M[x5000] - load memory of x5002 into R4
+LDI R5, ONECHAR ; R5 <- M[x5001] - load memory of x5001 into R5
+LDI R6, ZCHAR ; R6 <- M[x5002] - load memory of x5000 into R6
 
-AND R3, R3, #0 ; R3 <- R3 AND 0 
-ADD R3, R3, #4 ; R3 <- R3 + 4 
+AND R3, R3, #0 ; R3 <- R3 AND 0 - clear contents of R3
+ADD R3, R3, #4 ; R3 <- R3 + 4 - add four so it becomes a counter
 
 SHIFT
 
-ADD R4, R4, R4 ; R4 <- R4 + R4
-ADD R3, R3, #-1 ; R3 <- R3 - 1
+ADD R4, R4, R4 ; R4 <- R4 + R4 - double R4 
+ADD R3, R3, #-1 ; R3 <- R3 - 1 - decriment R3 by 1
 
-BRp SHIFT ; > 0, go to shift
+BRp SHIFT ; if > 0, go to shift 
 
 LEA R0, FONT_DATA ; R0 <- FONT_DATA
 ADD R4, R0, R4 ; R4 <- R0 + R4 
