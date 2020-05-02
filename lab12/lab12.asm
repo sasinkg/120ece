@@ -54,13 +54,13 @@ ADD R2, R2, #15; R2 <- R2 + 15
 LEA R0, FONT_DATA ; R0 <- FONT_DATA
 ADD R4, R0, R4 ; R4 <- R0 + R4 
 
-BRANCH2 
+BRANCH1 
 
 LDR R1, R4, #0 ; R1 <- M[R4]
 AND R3, R3, #0 ; R3 <- R3 AND 0
 ADD R3, R3, #7; R3 <- R3 + 7  
 
-BRANCH1
+BRANCH2
 
 ADD R1, R1, #0 ; R1 <- R1 + 0 
 
@@ -85,7 +85,7 @@ LSHIFT
 ADD R1, R1, R1 ; R1 <- R1 + R1 
 ADD R3, R3, #-1 ; R3 <- R3 - 1 
 
-BRzp BRANCH1 ; >= 0, go to BRANCH1
+BRzp BRANCH2 ; >= 0, go to BRANCH2
  
 
 LD R0, NEWLINE ; new line on the next row
@@ -95,7 +95,7 @@ OUT
 ADD R2, R2, #-1 ; R2 <- R2 - 1
 ADD R4, R4, #1 ; R4 <- R4 + 1
 
-BRzp BRANCH2 ; R2 >= 0, go to BRANCH2 
+BRzp BRANCH1 ; R2 >= 0, go to BRANCH1 
 
 HALT ; if R2 < 0, STOP
 
