@@ -7,16 +7,6 @@
 ; Sasin Gudipati
 ; sasinkg2 
 
-
-; Register Values and Meaning: 
-; R0 - held the position of FONT_DATA to get the starting position of the code
-; R1 - holds value in the current address 
-; R2 - counter (row) for the code (starts at 15, goes to 0)
-; R3 - counter (column) for the code (starts at 7, and goes to 0)
-; R4 - adds 1 to address of start program if the (row)counter (R3) goes up by 1
-; R5 - holds address x5001 to add a “@” character if there is a 1
-; R6 - holds address x5002 to add a “.” character if there is a 0
-
 ; introductory paragraph start here
 
 ; This code's purpose is to display certain ASCII characters in a pattern. These 
@@ -28,6 +18,15 @@
 ; whole it is positive or negative) to check the first bit of the sequence. Then you 
 ; have to have the code loop back, so I added another branch so that the program would 
 ; loop and not have extra lines of code.
+
+; Register Values and Meaning: 
+; R0 - held the position of FONT_DATA to get the starting position of the code
+; R1 - holds value in the current address 
+; R2 - counter (row) for the code (starts at 15, goes to 0)
+; R3 - counter (column) for the code (starts at 7, and goes to 0)
+; R4 - adds 1 to address of start program if the (row)counter (R3) goes up by 1
+; R5 - holds address x5001 to add a “@” character if it is a 1 in the bit sequence
+; R6 - holds address x5002 to add a “.” character if it is a 0 in the bit sequence
 
 ; start code here
 
@@ -47,20 +46,20 @@ ADD R3, R3, #-1 ; R3 <- R3 - 1 - decriment R3 by 1
 
 BRp SHIFT ; if > 0, go to shift 
 
-AND R3, R3, #0 ; R3 <- R3 AND 0
-ADD R3, R3, #7; R3 <- R3 + 7 
-AND R2, R2, #0 ; R2 <- R2 AND 0
-ADD R2, R2, #15; R2 <- R2 + 15
-LEA R0, FONT_DATA ; R0 <- FONT_DATA
-ADD R4, R0, R4 ; R4 <- R0 + R4 
+AND R3, R3, #0 ; R3 <- R3 AND 0 - clear R0
+ADD R3, R3, #7; R3 <- R3 + 7 - add seven to act as a counter
+AND R2, R2, #0 ; R2 <- R2 AND 0 - clear R2
+ADD R2, R2, #15; R2 <- R2 + 15 - add fifteen to act as a counter
+LEA R0, FONT_DATA ; R0 <- FONT_DATA - load font data into R0
+ADD R4, R0, R4 ; R4 <- R0 + R4 - add R0 into R4 to get font data into R4
 
-BRANCH2 
+BRANCH1 
 
-LDR R1, R4, #0 ; R1 <- M[R4]
-AND R3, R3, #0 ; R3 <- R3 AND 0
-ADD R3, R3, #7; R3 <- R3 + 7  
+LDR R1, R4, #0 ; R1 <- M[R4] - call memory of R4 into R1
+AND R3, R3, #0 ; R3 <- R3 AND 0 - clear memory of R3
+ADD R3, R3, #7; R3 <- R3 + 7 - add seven to R3 to act as a counter
 
-BRANCH1
+BRANCH2
 
 ADD R1, R1, #0 ; R1 <- R1 + 0 
 
@@ -85,9 +84,8 @@ LSHIFT
 ADD R1, R1, R1 ; R1 <- R1 + R1 
 ADD R3, R3, #-1 ; R3 <- R3 - 1 
 
-BRzp BRANCH1 ; >= 0, go to BRANCH1
+BRzp BRANCH2 ; >= 0, go to BRANCH2
  
-
 LD R0, NEWLINE ; new line on the next row
 
 OUT 
@@ -95,16 +93,14 @@ OUT
 ADD R2, R2, #-1 ; R2 <- R2 - 1
 ADD R4, R4, #1 ; R4 <- R4 + 1
 
-BRzp BRANCH2 ; R2 >= 0, go to BRANCH2 
+BRzp BRANCH1 ; R2 >= 0, go to BRANCH1
 
 HALT ; if R2 < 0, STOP
 
-VALUE .FILL x5002
-ONECHAR .FILL x5001
-ZCHAR .FILL x5000
 NEWLINE .FILL xA
-
-
+ZCHAR .FILL x5000
+ONECHAR .FILL x5001
+VALUE .FILL x5002
 
 FONT_DATA
 	.FILL	x0000
