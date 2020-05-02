@@ -20,7 +20,7 @@
 ; loop and not have extra lines of code.
 
 ; Register Values and Meaning: 
-; R0 - held the position of FONT_DATA to get the starting position of the code
+; R0 - gets the starting position of the code
 ; R1 - holds value in the current address 
 ; R2 - counter (row) for the code (starts at 15, goes to 0)
 ; R3 - counter (column) for the code (starts at 7, and goes to 0)
@@ -48,10 +48,10 @@ BRp SHIFT ; if > 0, go to shift
 
 AND R3, R3, #0 ; R3 <- R3 AND 0 - clear R0
 ADD R3, R3, #7; R3 <- R3 + 7 - add seven to act as a counter
-AND R2, R2, #0 ; R2 <- R2 AND 0 - clear R2
-ADD R2, R2, #15; R2 <- R2 + 15 - add fifteen to act as a counter
 LEA R0, FONT_DATA ; R0 <- FONT_DATA - load font data into R0
 ADD R4, R0, R4 ; R4 <- R0 + R4 - add R0 into R4 to get font data into R4
+AND R2, R2, #0 ; R2 <- R2 AND 0 - clear R2
+ADD R2, R2, #15; R2 <- R2 + 15 - add fifteen to act as a counter
 
 BRANCH1 
 
@@ -63,7 +63,7 @@ BRANCH2
 
 ADD R1, R1, #0 ; R1 <- R1 + 0 
 
-BRn ADDONE ; < 0, go to ADDONE
+BRn ADDONE ; if < 0, go to ADDONE
 
 ADDZERO
 
