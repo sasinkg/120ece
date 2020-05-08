@@ -3,6 +3,77 @@
 ; 8 bits (the high 8 bits, for your convenience) marking pixels in the
 ; line for that character.
 
+; my code did not work clearly, and ran out of time for commenting :(
+; the goal of my code was to have it loop through and see if the bit sequence is a 1 or a 0. from 
+; there it would print out the right ASCII value, but I was very confused on how to make this 
+; work, since my lab12 did not end up working either. I was going to add to the counter and 
+; decriment from it until it became 0, where R2 was the counter. Then i would load the memory of 
+; x5002 into R6 and then loop so that it would continue to work through until it finished the 
+; sequence. I ran out of time again and I had trouble coming up with a strong algorithm to finish 
+; solve this problem. I tried to debug my code and ended up losing connection to wifi and the work 
+; didn't save, so my code was left incomplete in shambles. I learned my mistake with saving my 
+; work locally, and making sure that I upload to github ever so often so that I can revert back to 
+; the newest set of code i have.
+
+.ORIG x3000
+
+AND R2, R2, #0 ; clear R2 (counter)
+ADD R2, R2, #15 ; add 15 --> 16 rows (including 0)
+
+LD R6, PRINT ; R6 <- M[x5002] 
+
+CHAR
+
+LDR R4, R6, #0 ; R4 <- M[R6]
+ADD R4, R4, #0 ; add R4 + 0; 
+BRz NEWCHAR ; if zero go to NEWCHAR
+ 
+LEA R1, FONT_DATA ; 
+
+; temporarily commenting below out 
+; AND R4, R4, #0 not sure about these lines
+; ADD R1, R4, R1 not sure about these lines 
+; ADD R1, R3, R1 not sure about this lines
+
+ADD R5, R5, #0 ; 
+BRp POSITIVE ; 
+BRn NEGATIVE ;
+
+DISPLAY 
+
+ADD R4, R4, #0 ; 
+
+BRnz CHAR ;
+ADD R5, R5, R5 ;
+BRp POSITIVE ;
+BRn NEGATIVE ; 
+
+NEW 
+
+ADD R3, R3, #1 ;
+LD R0, NEWCHAR
+OUT ;
+
+NEGATIVE 
+
+LDI R0, ONECHAR ; 
+OUT ; 
+BRnzp DISPLAY ;
+
+POSITIVE 
+
+LDI R0, ZEROCHAR ;
+OUT ; 
+BRnzp DISPLAY ; 
+
+ENDPROGRAM HALT ;
+
+ZEROCHAR .FILL x5000
+ONECHAR .FILL x5001
+PRINT .FILL x5002
+NEWCHAR .FILL x000A 
+
+
 FONT_DATA
 	.FILL	x0000
 	.FILL	x0000
@@ -4100,3 +4171,5 @@ FONT_DATA
 	.FILL	x0000
 	.FILL	x0000
 	.FILL	x0000
+
+.END
