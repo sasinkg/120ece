@@ -1,0 +1,25 @@
+lc3as output:
+STARTING PASS 1
+0 errors found in first pass.
+STARTING PASS 2
+0 errors found in second pass.
+
+Infinite loop detected -> "graded/gibberish": 0
+Infinite loop detected -> "graded/registers": 0
+Infinite loop detected -> "graded/singlecharacter": 0
+Infinite loop detected -> "graded/voldemort": 0
+Proper halt: 5/5
+Functionality total: 0
+
+Single iterative construct to print every line of output: 0/10
+Single iterative construct to print every character in string: 0/10
+Single iterative construct to print every bit in a character: 0/10
+Single conditional construct to select character for printing: 5/5
+Style total: 5/35
+
+Introductory paragraph: 5/5
+Table of registers with explanation: 0/5
+Clear and well-commented code: 1/5
+Comments total: 6/15
+
+Total: 11/100
