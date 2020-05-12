@@ -1,0 +1,15 @@
+lc3as output:
+ 19: illegal operands for ADD
+ 32: label OUTERLOOP has already appeared
+STARTING PASS 1
+2 errors found in first pass.
+
+factorial: 0/10
+reg_initialization: 0/3
+Functionality: 0/13
+
+Question 1: 6/7
+Question 2: 2/3
+Question 3: 2/2
+
+Total: 10/25
